@@ -1,0 +1,86 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger only when a tag starting with 'v' is pushed
+    branches:
+      - master
+      - main
+      - develop
+      - feature/*
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    name: build-and-push
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set repository name as environment variable
+        run: echo "REPO_NAME=$(echo "${{ github.repository }}" | cut -d '/' -f 2)" >> $GITHUB_ENV
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Set version variable
+        id: set-version
+        # 根据构建时间设置版本号
+        run: |
+          export TZ='Asia/Shanghai'
+          echo "VERSION=${{ github.run_number }}_$(TZ='Asia/Shanghai' date +'%Y%m%d%H%M')_$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+      # 登录Docker Hub
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      # build 镜像并push到仓库中
+#      - name: Build and push
+#        id: docker_build
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: .
+#          file: ./Dockerfile
+#          platforms: linux/amd64,linux/arm64
+#          push: true
+#          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }},${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.REPO_NAME }}:latest
+      - name: Login to alibaba
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.ALI_DOCKER_USERNAME }}
+          password: ${{ secrets.ALI_DOCKER_ACCESS_TOKEN }}
+          registry: ${{ vars.ALI_DOCKER_REGISTRY }}
+      - name: Build and push
+        id: push_to_aliyun
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }},${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:latest
+
+      - name: upgrade app deployment with new image
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER_NAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          sync: true # 在多個主機上同步執行
+          script_stop: true
+          script: |
+            echo "${{ env.VERSION }}"
+            ls -al
+            kubectl set image deployment/${{ env.REPO_NAME }} -n dev ${{ env.REPO_NAME }}=${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }}

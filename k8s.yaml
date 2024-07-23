@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-robin
+  labels:
+    app: hello-robin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-robin
+  template:
+    metadata:
+      labels:
+        app: hello-robin
+    spec:
+      containers:
+        - name: hello-robin
+          imagePullPolicy: Always
+          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/hello-robin:3_202407231755_a8b5f53
+          ports:
+            - containerPort: 3000
+#          resources:
+#            requests:
+#              memory: "256Mi"
+#              cpu: "100m"
+#            limits:
+#              memory: "512Mi"
+#              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-robin
+spec:
+  selector:
+    app: hello-robin
+  ports:
+    - name: http-traffic
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-robin
+  labels:
+    app: hello-robin
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - react.riji.life  # 填写你的域名
+      secretName: cert-riji.life-wild-tls  # 存储证书的 Secret
+  rules:
+    - host: react.riji.life
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: hello-robin
+                port:
+                  number: 80
+
