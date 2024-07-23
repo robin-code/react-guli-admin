@@ -71,17 +71,16 @@ jobs:
           push: true
           tags: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }},${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:latest
 
-#      - name: upgrade app deployment with new image
-#        uses: appleboy/ssh-action@v1.0.3
-#        with:
-#          host: ${{ secrets.SSH_HOST }}
-#          username: ${{ secrets.SSH_USER_NAME }}
-#          port: ${{ secrets.SSH_PORT }}
-#          key: ${{ secrets.SSH_KEY }}
-#          sync: true # 在多個主機上同步執行
-#          script_stop: true
-#          script: |
-#            echo "${{ env.VERSION }}"
-#            ls -al
-#            kubectl set image deployment/${{ env.REPO_NAME }} -n ${{ env.NAMESPACE }} ${{ env.REPO_NAME }}=${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
-#
+      - name: upgrade app deployment with new image
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER_NAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          sync: true # 在多個主機上同步執行
+          script_stop: true
+          script: |
+            echo "${{ env.VERSION }}"
+            ls -al
+            kubectl set image deployment/${{ env.REPO_NAME }} -n ${{ env.NAMESPACE }} ${{ env.REPO_NAME }}=${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }}

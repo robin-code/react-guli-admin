@@ -17,7 +17,7 @@ spec:
       containers:
         - name: hello-robin
           imagePullPolicy: Always
-          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/hello-robin:1_202407231715_5240240
+          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/hello-robin:3_202407231755_a8b5f53
           ports:
             - containerPort: 3000
 #          resources:
