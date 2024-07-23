@@ -24,4 +24,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Define the command to run your app using CMD which starts your Vite app
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "dev"]
