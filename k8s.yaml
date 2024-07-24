@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-robin
+  name: vite-react-demo
   labels:
-    app: hello-robin
+    app: vite-react-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-robin
+      app: vite-react-demo
   template:
     metadata:
       labels:
-        app: hello-robin
+        app: vite-react-demo
     spec:
       containers:
-        - name: hello-robin
-          imagePullPolicy: Always
-          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/hello-robin:3_202407231755_a8b5f53
+        - name: vite-react-demo
+          imagePullPolicy: IfNotPresent
+          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/vite-react-demo:latest
           ports:
             - containerPort: 3000
 #          resources:
@@ -31,10 +31,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-robin
+  name: vite-react-demo
 spec:
   selector:
-    app: hello-robin
+    app: vite-react-demo
   ports:
     - name: http-traffic
       port: 80
@@ -44,9 +44,9 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-robin
+  name: vite-react-demo
   labels:
-    app: hello-robin
+    app: vite-react-demo
 spec:
   ingressClassName: nginx
   tls:
@@ -61,7 +61,7 @@ spec:
             path: /
             backend:
               service:
-                name: hello-robin
+                name: vite-react-demo
                 port:
                   number: 80
 
