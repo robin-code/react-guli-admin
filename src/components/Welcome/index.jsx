@@ -1,11 +1,11 @@
 import {Component} from "react";
-import "./index.css"
+import welcome from "./index.module.css"
 
 export default class index extends Component {
 
     render() {
         return (
-            <h1 className="title">welcome robin</h1>
+            <h1 className={welcome.title}>welcome robin</h1>
         )
     }
 }
