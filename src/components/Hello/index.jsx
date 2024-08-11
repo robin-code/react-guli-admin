@@ -1,7 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
-import "./Hello.css"
+import "./index.css"
 
-export default class Hello extends React.Component {
+export default class index extends React.Component {
     render() {
         return (
             <h1 className="title">First Component!!!</h1>

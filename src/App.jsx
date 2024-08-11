@@ -1,6 +1,6 @@
 import './App.css'
-import Hello from "./components/Hello/Hello.jsx";
-import {Welcome} from "./components/Welcome/Welcome.jsx";
+import Hello from "./components/Hello"
+import Welcome from "./components/Welcome"
 
 function App() {
 

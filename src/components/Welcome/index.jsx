@@ -1,7 +1,7 @@
 import {Component} from "react";
-import "./Welcome.css"
+import "./index.css"
 
-export class Welcome extends Component {
+export default class index extends Component {
 
     render() {
         return (
