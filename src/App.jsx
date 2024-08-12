@@ -1,17 +1,14 @@
 import './App.css'
-import AddItem from "./components/AddItem"
-import ItemList from "./components/ItemList"
-import Footer from "./components/Footer"
+import Hello from "./components/Hello"
+import Welcome from "./components/Welcome"
 
 function App() {
 
     return (
-        <div>
-            <AddItem/>
-            <ItemList/>
-            <ItemList/>
-            <Footer/>
-        </div>
+        <>
+            <Hello/>
+            <Welcome/>
+        </>
     )
 }
 
