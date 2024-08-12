@@ -6,11 +6,12 @@ import {Component} from 'react';
  */
 
 class StateComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {isHot: true}
-        this.clickHandle = this.clickHandle.bind(this);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {isHot: true}
+    //     this.clickHandle = this.clickHandle.bind(this);
+    // }
+    state = {isHot: true}
 
     render() {
         const {isHot} = this.state
@@ -19,10 +20,17 @@ class StateComponent extends Component {
         );
     }
 
-    clickHandle() {
+
+
+    clickHandle = () => {
         const isHot = !this.state.isHot
         this.setState({isHot})
     }
+
+    // clickHandle() {
+    //     const isHot = !this.state.isHot
+    //     this.setState({isHot})
+    // }
 }
 
 export default StateComponent;
