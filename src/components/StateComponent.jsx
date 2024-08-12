@@ -20,8 +20,8 @@ class StateComponent extends Component {
     }
 
     clickHandle() {
-        const {isHot} = this.state
-        this.setState({isHot: !isHot})
+        const isHot = !this.state.isHot
+        this.setState({isHot})
     }
 }
 
