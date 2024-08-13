@@ -3,11 +3,14 @@ import './index.css'
 
 class index extends Component {
     render() {
+        // eslint-disable-next-line react/prop-types
+        const {item} = this.props;
         return (
             <li>
                 <label>
                     <input type="checkbox"/>
-                    <span>first todo</span>
+                    {/* eslint-disable-next-line react/prop-types */}
+                    <span>{item.name}</span>
                 </label>
                 <button className="btn btn-danger" style={{display: "none"}}>删除</button>
             </li>
