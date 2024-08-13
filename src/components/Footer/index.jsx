@@ -10,7 +10,8 @@ class index extends Component {
     render() {
         const {todos} = this.props;
         const total = todos.length;
-        const doneCount = todos.filter(e => e.done === true).length;
+        // const doneCount = todos.filter(e => e.done === true).length;
+        const doneCount = todos.reduce((pre, current) => pre + (current.done === true ? 1 : 0), 0);
         return (
             <div className="todo-footer">
                 <label>
