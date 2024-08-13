@@ -6,7 +6,7 @@ import {useState} from "react";
 
 function App() {
 
-    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false}])
+    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false},{id: 3, name: 'three', done: true}])
 
     const addTodo = (todoObj) => {
         console.info("add todo ", todoObj)
@@ -23,7 +23,7 @@ function App() {
                 <div className="todo-wrap">
                     <Header addTodo={addTodo}/>
                     <List todos={todos} deleteTodo={deleteTodo}/>
-                    <Footer/>
+                    <Footer todos={todos}/>
                 </div>
             </div>
         </>
