@@ -17,8 +17,9 @@ class index extends Component {
 
     const
     handleDelete = (id) => {
-        console.info("delete todo id=", id)
-        this.props.deleteTodo(id)
+        if (window.confirm("确定删除吗")) {
+            this.props.deleteTodo(id);
+        }
 
     }
 
@@ -32,7 +33,7 @@ class index extends Component {
                     <input type="checkbox" defaultChecked={item.done}/>
                     <span>{item.name}</span>
                 </label>
-                <button onClick={(id) => this.handleDelete(item.id)} className="btn btn-danger"
+                <button onClick={() => this.handleDelete(item.id)}  className="btn btn-danger"
                         style={{display: mouseEnter ? "inline-block" : "none"}}>删除
                 </button>
             </li>
