@@ -10,6 +10,7 @@ class index extends Component {
         this.setState({"mouseEnter": mouseEnter})
     };
 
+
     render() {
         // eslint-disable-next-line react/prop-types
         const {item} = this.props;
@@ -17,7 +18,8 @@ class index extends Component {
         return (
             <li onMouseEnter={() => this.handleMouseEnter(true)} onMouseLeave={() => this.handleMouseEnter(false)}>
                 <label>
-                    <input type="checkbox"/>
+                    {/* eslint-disable-next-line react/prop-types */}
+                    <input type="checkbox" defaultChecked={item.done}/>
                     {/* eslint-disable-next-line react/prop-types */}
                     <span>{item.name}</span>
                 </label>

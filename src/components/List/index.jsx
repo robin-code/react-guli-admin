@@ -1,13 +1,16 @@
 import {Component} from 'react';
 import './index.css'
 import Item from "../Item/index.jsx";
+import PropTypes from "prop-types";
 
 class index extends Component {
 
+    static propTypes = {
+        todos: PropTypes.array.isRequired
+    }
+
     render() {
-        // eslint-disable-next-line react/prop-types
         const {todos} = this.props;
-        console.info("todo props", todos)
         return (
             <ul className="todo-main">
                 {/* eslint-disable-next-line react/prop-types */}

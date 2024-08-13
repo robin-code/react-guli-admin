@@ -6,13 +6,17 @@ import {useState} from "react";
 
 function App() {
 
-    const [todos] = useState([{id: 0, name: 'one'}, {id: 1, name: 'two'}])
+    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false}])
 
+    const addTodo = (todoObj) => {
+        console.info("add todo ", todoObj)
+        setTodos([todoObj, ...todos])
+    }
     return (
         <>
             <div className="todo-container">
                 <div className="todo-wrap">
-                    <Header/>
+                    <Header addTodo={addTodo}/>
                     <List todos={todos}/>
                     <Footer/>
                 </div>
