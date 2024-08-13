@@ -1,8 +1,13 @@
 import {Component} from 'react';
 import './index.css'
+import PropTypes from "prop-types";
 
 class index extends Component {
 
+    static propTypes = {
+        deleteTodo: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired
+    }
     state = {
         mouseEnter: false
     }
@@ -10,20 +15,26 @@ class index extends Component {
         this.setState({"mouseEnter": mouseEnter})
     };
 
+    const
+    handleDelete = (id) => {
+        console.info("delete todo id=", id)
+        this.props.deleteTodo(id)
+
+    }
+
 
     render() {
-        // eslint-disable-next-line react/prop-types
         const {item} = this.props;
         const {mouseEnter} = this.state;
         return (
             <li onMouseEnter={() => this.handleMouseEnter(true)} onMouseLeave={() => this.handleMouseEnter(false)}>
                 <label>
-                    {/* eslint-disable-next-line react/prop-types */}
                     <input type="checkbox" defaultChecked={item.done}/>
-                    {/* eslint-disable-next-line react/prop-types */}
                     <span>{item.name}</span>
                 </label>
-                <button className="btn btn-danger" style={{display: mouseEnter ? "inline-block" : "none"}}>删除</button>
+                <button onClick={(id) => this.handleDelete(item.id)} className="btn btn-danger"
+                        style={{display: mouseEnter ? "inline-block" : "none"}}>删除
+                </button>
             </li>
         );
     }

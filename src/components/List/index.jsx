@@ -6,16 +6,16 @@ import PropTypes from "prop-types";
 class index extends Component {
 
     static propTypes = {
-        todos: PropTypes.array.isRequired
+        todos: PropTypes.array.isRequired,
+        deleteTodo: PropTypes.func.isRequired
     }
 
     render() {
         const {todos} = this.props;
         return (
             <ul className="todo-main">
-                {/* eslint-disable-next-line react/prop-types */}
                 {todos.map(e =>
-                    <Item key={e.id} item={e}/>
+                    <Item key={e.id} item={e} deleteTodo={this.props.deleteTodo}/>
                 )}
             </ul>
         );

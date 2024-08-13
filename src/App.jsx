@@ -12,12 +12,17 @@ function App() {
         console.info("add todo ", todoObj)
         setTodos([todoObj, ...todos])
     }
+    const deleteTodo = (id) => {
+        console.info("delete todo", id)
+        const newTodos = todos.filter(e => e.id !== id)
+        setTodos(newTodos)
+    }
     return (
         <>
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={addTodo}/>
-                    <List todos={todos}/>
+                    <List todos={todos} deleteTodo={deleteTodo}/>
                     <Footer/>
                 </div>
             </div>
