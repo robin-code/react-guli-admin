@@ -29,7 +29,14 @@ function App() {
             }
         })
         setTodos(newTodos);
+    }
 
+
+    const handleCheckAll = (done) => {
+        const newTodos = todos.map(e => {
+            return {...e, done}
+        })
+        setTodos(newTodos);
     }
     return (
         <>
@@ -37,7 +44,7 @@ function App() {
                 <div className="todo-wrap">
                     <Header addTodo={addTodo}/>
                     <List todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
-                    <Footer todos={todos}/>
+                    <Footer todos={todos} handleCheckAll={handleCheckAll}/>
                 </div>
             </div>
         </>
