@@ -18,6 +18,11 @@ export default defineConfig({
         target: 'http://localhost:10009', // 目标服务器
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api2/, '')
+      },
+      '/api': {
+        target: 'http://localhost:10009', // 目标服务器
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   },
