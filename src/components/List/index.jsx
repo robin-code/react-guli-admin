@@ -7,7 +7,8 @@ class index extends Component {
 
     static propTypes = {
         todos: PropTypes.array.isRequired,
-        deleteTodo: PropTypes.func.isRequired
+        deleteTodo: PropTypes.func.isRequired,
+        updateTodo: PropTypes.func.isRequired
     }
 
     render() {
@@ -15,7 +16,7 @@ class index extends Component {
         return (
             <ul className="todo-main">
                 {todos.map(e =>
-                    <Item key={e.id} item={e} deleteTodo={this.props.deleteTodo}/>
+                    <Item key={e.id} item={e} deleteTodo={this.props.deleteTodo} updateTodo={this.props.updateTodo}/>
                 )}
             </ul>
         );

@@ -6,23 +6,37 @@ import {useState} from "react";
 
 function App() {
 
-    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false},{id: 3, name: 'three', done: true}])
+    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false}, {
+        id: 3,
+        name: 'three',
+        done: true
+    }])
 
     const addTodo = (todoObj) => {
-        console.info("add todo ", todoObj)
         setTodos([todoObj, ...todos])
     }
     const deleteTodo = (id) => {
-        console.info("delete todo", id)
         const newTodos = todos.filter(e => e.id !== id)
         setTodos(newTodos)
+    }
+
+    const updateTodo = (id, done) => {
+        const newTodos = todos.map(e => {
+            if (e.id === id) {
+                return {...e, done}
+            } else {
+                return e;
+            }
+        })
+        setTodos(newTodos);
+
     }
     return (
         <>
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={addTodo}/>
-                    <List todos={todos} deleteTodo={deleteTodo}/>
+                    <List todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
                     <Footer todos={todos}/>
                 </div>
             </div>
