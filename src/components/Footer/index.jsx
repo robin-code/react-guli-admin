@@ -5,11 +5,16 @@ import PropTypes from "prop-types";
 class index extends Component {
     static propTypes = {
         todos: PropTypes.array.isRequired,
-        handleCheckAll: PropTypes.func.isRequired
+        handleCheckAll: PropTypes.func.isRequired,
+        handleClearDone: PropTypes.func.isRequired
     }
 
     handleCheckAll = (event) => {
         this.props.handleCheckAll(event.target.checked)
+    }
+
+    handleClearDone = () => {
+        this.props.handleClearDone()
     }
 
     render() {
@@ -24,10 +29,11 @@ class index extends Component {
                     <input type="checkbox" checked={allDone} onChange={this.handleCheckAll}/>
                 </label>
                 <span><span>已完成{doneCount}</span> / 全部{total}</span>
-                <button className="btn btn-danger">清除已完成任务</button>
+                <button className="btn btn-danger" onClick={this.handleClearDone}>清除已完成任务</button>
             </div>
         );
     }
+
 }
 
 export default index;

@@ -38,13 +38,18 @@ function App() {
         })
         setTodos(newTodos);
     }
+
+    const handleClearDone = () => {
+        const newTodos = todos.filter(e => e.done === false)
+        setTodos(newTodos)
+    }
     return (
         <>
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={addTodo}/>
                     <List todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
-                    <Footer todos={todos} handleCheckAll={handleCheckAll}/>
+                    <Footer todos={todos} handleCheckAll={handleCheckAll} handleClearDone={handleClearDone}/>
                 </div>
             </div>
         </>
