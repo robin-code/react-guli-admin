@@ -6,12 +6,14 @@ import {useState} from "react";
 
 function App() {
 
-    const [todos, setTodos] = useState([{id: 0, name: 'one', done: true}, {id: 1, name: 'two', done: false}, {
-        id: 3,
-        name: 'three',
-        done: true
-    }])
+    const [todos, setTodos] = useState([
+        {id:'001',name:'吃饭',done:true},
+        {id:'002',name:'睡觉',done:true},
+        {id:'003',name:'打代码',done:false},
+        {id:'004',name:'逛街',done:false}
+    ])
 
+    //添加一个todo
     const addTodo = (todoObj) => {
         setTodos([todoObj, ...todos])
     }
