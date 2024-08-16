@@ -16,6 +16,7 @@ class Search extends Component {
         axios.get(`https://api.github.com/search/users?q=${queryKey}`).then(
             response => {
                 PubSub.publish("query-github-user",{users: response.data.items, isLoading: false})
+                this.queryKey.current.value = ''
             },
             error => {
                 //请求失败后通知App更新状态
