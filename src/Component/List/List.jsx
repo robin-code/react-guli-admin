@@ -1,11 +1,29 @@
 import {Component} from 'react';
 import './list.css'
+import PubSub from 'pubsub-js'
 
-class list extends Component {
+class index extends Component {
+    state ={
+        users:[],
+        isFirst:true,
+        isLoading:false,
+        err:''
+    }
+
+    componentDidMount(){
+        this.token = PubSub.subscribe('query-github-user',(_,stateObj)=>{
+            this.setState(stateObj)
+        })
+    }
+
+    componentWillUnmount(){
+        PubSub.unsubscribe(this.token)
+    }
+
 
     render() {
         // eslint-disable-next-line react/prop-types
-        const {users, isFirst, isLoading, err} = this.props
+        const {users, isFirst, isLoading, err} = this.state
         return (
             <div className="row">
                 {
@@ -28,4 +46,4 @@ class list extends Component {
 }
 
 
-export default list;
+export default index;

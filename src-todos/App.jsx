@@ -1,7 +1,7 @@
 import "./index.css"
 import Header from "./components/Header";
 import Footer from "./components/Footer/index.jsx";
-import List from "./components/List/index.jsx";
+import List from "./components/List";
 import {useState} from "react";
 
 function App() {
