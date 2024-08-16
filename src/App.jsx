@@ -6,19 +6,20 @@ import '/public/bootstrap.css'
 class App extends Component {
 
     state ={
-        users:[]
+        users:[],
+        isFirst:true,
+        isLoading:false,
+        err:''
     }
-    updateAppState = (value) => {
-        console.log("value",value)
-        this.setState({users:value.users})
+    updateAppState = (stateObj) => {
+        this.setState(stateObj)
     }
 
     render() {
-        const {users} = this.state;
         return (
             <div className="container">
                 <Search updateAppState={this.updateAppState}/>
-                <List users={users}/>
+                <List {...this.state}/>
             </div>
         );
     }

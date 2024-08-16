@@ -5,29 +5,25 @@ class Search extends Component {
     queryKey = React.createRef();
 
     queryData = () => {
-
         const queryKey = this.queryKey.current.value;
         if (queryKey === '') {
             alert("请输入查询的关键词")
         }
-
+        // eslint-disable-next-line react/prop-types
+        this.props.updateAppState({isFirst:false})
         axios.get(`https://api.github.com/search/users?q=${queryKey}`).then(
             response => {
                 //请求成功后通知App更新状态
-                console.info("get data success",response.data.items)
                 // eslint-disable-next-line react/prop-types
-                this.props.updateAppState({users:response.data.items})
+                this.props.updateAppState({users:response.data.items,isLoading:false})
             },
             error => {
                 //请求失败后通知App更新状态
-                console.info("get data error",error.message)
+                // eslint-disable-next-line react/prop-types
+                this.props.updateAppState({err:error,isLoading:false})
             }
         )
-
-        console.info("query key %s", queryKey);
-
     }
-
 
     render() {
         return (
