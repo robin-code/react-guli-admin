@@ -19,15 +19,15 @@ jobs:
           fetch-depth: 0
       - name: Set repository name as environment variable
         run: echo "REPO_NAME=$(echo "${{ github.repository }}" | cut -d '/' -f 2)" >> $GITHUB_ENV
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build React app
-        run: npm run build
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '16'
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Build React app
+#        run: npm run build
 
       - name: Set version variable
         id: set-version
@@ -67,7 +67,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64 #,linux/arm64
           push: true
           tags: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }},${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:latest
 
