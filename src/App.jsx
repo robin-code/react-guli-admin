@@ -31,6 +31,7 @@ export default class App extends Component {
 								{/* 注册路由 */}
 								<Route path="/about" component={About}/>
 								<Route path="/home" component={Home}/>
+								<Route path="/home" component={About}/>
 							</div>
 						</div>
 					</div>
