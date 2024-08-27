@@ -1,11 +1,14 @@
-import {useState} from 'react'
+import {Button, message} from 'antd';
+
 
 function App() {
-    const [count, setCount] = useState(0)
 
+    const hello = () => {
+        message.info('This is a normal message');
+    }
     return (
         <>
-            Hello
+            <Button type="primary" onClick={hello}>Button</Button>
         </>
     )
 }
