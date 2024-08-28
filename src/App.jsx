@@ -1,15 +1,22 @@
-import {Button, message} from 'antd';
+import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+
+import Login from "./pages/login/login.jsx";
+import Admin from "./pages/admin";
 
 
 function App() {
 
-    const hello = () => {
-        message.info('This is a normal message');
-    }
     return (
-        <>
-            <Button type="primary" onClick={hello}>Button</Button>
-        </>
+        <Router>
+
+            <Link to="/login">Login</Link> <br/>
+            <Link to="/admin">Admin</Link>
+
+            <Routes>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/admin" element={<Admin/>}/>
+            </Routes>
+        </Router>
     )
 }
 
