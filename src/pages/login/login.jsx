@@ -2,12 +2,22 @@ import './login.css'
 import logo from '../../assets/logo.png'
 import {Button, Form, Input, message} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
+import {reqLogin} from "../../api/index.js";
 
 function Login() {
 
     const onFinish = (values) => {
         console.log('Success:', values);
         message.success('登录成功', 2)
+        const {username, password} = values;
+        if (!reqLogin(username, password).then(resp => {
+            console.log("success" + resp.data)
+        }).catch(error => {
+            console.info("error" + error);
+        })) {
+            console.error("请求出错")
+        }
+
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -35,13 +45,13 @@ function Login() {
                     label="用户名"
                     name="username"
                     rules={
-                    [
-                        {required: true, whitespace:true , message: 'Please input your username!'},
-                        {min: 4, message: '最少4位!'},
-                        {pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是字母数字下划线!'},
-                        {max: 16, message: '最多16位!'},
-                    ]
-                }
+                        [
+                            {required: true, whitespace: true, message: 'Please input your username!'},
+                            {min: 4, message: '最少4位!'},
+                            {pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须是字母数字下划线!'},
+                            {max: 16, message: '最多16位!'},
+                        ]
+                    }
                 >
                     <Input/>
                 </Form.Item>
