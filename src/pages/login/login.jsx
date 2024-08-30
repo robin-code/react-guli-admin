@@ -4,14 +4,18 @@ import {Button, Form, Input, message} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {reqLogin} from "../../api/index.js";
 
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
 
+    const navigate = useNavigate();
     const onFinish = (values) => {
         console.log('Success:', values);
         message.success('登录成功', 2)
         const {username, password} = values;
         if (!reqLogin(username, password).then(resp => {
             console.log("success" + resp.data)
+            navigate("/admin")
         }).catch(error => {
             console.info("error" + error);
         })) {
