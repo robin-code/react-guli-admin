@@ -4,24 +4,31 @@ import {Button, Form, Input, message} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {reqLogin} from "../../api/index.js";
 
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import memoryUtil from "../../utils/memoryUtil.js";
+import storeUtil from "../../utils/storeUtil.js";
 
 function Login() {
-
     const navigate = useNavigate();
-    const onFinish = (values) => {
+
+    const user = memoryUtil.user
+    console.info("login user info ={}",user)
+    if (user && user._id) {
+        navigate('/admin');
+    }
+
+    const onFinish = async (values) => {
         console.log('Success:', values);
         message.success('登录成功', 2)
         const {username, password} = values;
-        if (!reqLogin(username, password).then(resp => {
-            console.log("success" + resp.data)
-            navigate("/admin")
-        }).catch(error => {
-            console.info("error" + error);
-        })) {
-            console.error("请求出错")
+        const result = await reqLogin(username, password) // {status: 0, data: user}  {status: 1, msg: 'xxx'}
+        console.info("result is ", result.data)
+        if (result) {
+            memoryUtil.user = result.data;
+            console.info(memoryUtil.user);
+            storeUtil.saveUser(result.data)
+            navigate('/admin')
         }
-
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

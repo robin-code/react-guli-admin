@@ -2,9 +2,11 @@ import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom
 
 import Login from "./pages/login/login.jsx";
 import Admin from "./pages/admin";
+import './utils/storeUtil.js'
 
 
 function App() {
+
 
     return (
         <Router>

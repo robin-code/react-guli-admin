@@ -1,7 +1,7 @@
 import ajax from './ajax'
 
 
-const BASE = 'http://localhost:5173'
+const BASE = ''
 // 登陆
 /*
 export function reqLogin(username, password) {
