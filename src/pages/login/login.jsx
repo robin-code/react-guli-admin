@@ -7,15 +7,17 @@ import {reqLogin} from "../../api/index.js";
 import {useNavigate} from 'react-router-dom';
 import memoryUtil from "../../utils/memoryUtil.js";
 import storeUtil from "../../utils/storeUtil.js";
+import {useEffect, useState} from "react";
 
 function Login() {
     const navigate = useNavigate();
+    const [isLogin, setIsLogin] = useState(!!memoryUtil.user);
 
-    const user = memoryUtil.user
-    console.info("login user info ={}",user)
-    if (user && user._id) {
-        navigate('/admin');
-    }
+    useEffect(() => {
+        if (isLogin) {
+            navigate('/')
+        }
+    }, [isLogin, navigate]);
 
     const onFinish = async (values) => {
         console.log('Success:', values);
@@ -25,9 +27,8 @@ function Login() {
         console.info("result is ", result.data)
         if (result) {
             memoryUtil.user = result.data;
-            console.info(memoryUtil.user);
             storeUtil.saveUser(result.data)
-            navigate('/admin')
+            setIsLogin(true);
         }
     };
     const onFinishFailed = (errorInfo) => {
@@ -86,7 +87,6 @@ function Login() {
             </Form>
         </section>
     </div>
-        ;
 }
 
 export default Login;

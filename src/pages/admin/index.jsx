@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 class Index extends Component {
     render() {
         const user = memoryUtil.user
-        console.log("user ", user)
         if (!user || !user._id) {
             const navigate = useNavigate;
             navigate('/login');
