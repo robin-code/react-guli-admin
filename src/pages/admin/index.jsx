@@ -2,15 +2,16 @@ import {Component} from 'react';
 import {Layout} from 'antd';
 
 import memoryUtil from "../../utils/memoryUtil.js";
-import {useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 
 import './index.less'
+import Category from "../category/category.jsx";
 
 const {Sider, Footer, Content} = Layout;
 
-class Index extends Component {
+class Admin extends Component {
     render() {
         const user = memoryUtil.user
         if (!user || !user._id) {
@@ -20,11 +21,16 @@ class Index extends Component {
         return (
             <Layout style={{minHeight: '100%'}}>
                 <Sider>
-                    <LeftNav></LeftNav>
+                    <LeftNav/>
                 </Sider>
                 <Layout>
                     <Header/>
-                    <Content style={{backgroundColor: 'gray'}}>Content</Content>
+                    <Content style={{backgroundColor: 'skyblue'}}>
+                        <Routes>
+                            <Route path="/" element={<Admin />} />
+                            <Route path="/category" element={<Category />} />
+                        </Routes>
+                    </Content>
                     <Footer style={{
                         textAlign: 'center',
                         color: '#cccccc'
@@ -35,4 +41,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default Admin;
