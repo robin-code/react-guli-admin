@@ -2,12 +2,11 @@ import {Component} from 'react';
 import {Layout} from 'antd';
 
 import memoryUtil from "../../utils/memoryUtil.js";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 
 import './index.less'
-import Category from "../category/category.jsx";
 
 const {Sider, Footer, Content} = Layout;
 
@@ -26,10 +25,7 @@ class Admin extends Component {
                 <Layout>
                     <Header/>
                     <Content style={{backgroundColor: 'skyblue'}}>
-                        <Routes>
-                            <Route path="/" element={<Admin />} />
-                            <Route path="/category" element={<Category />} />
-                        </Routes>
+                        <Outlet/>
                     </Content>
                     <Footer style={{
                         textAlign: 'center',

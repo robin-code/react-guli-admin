@@ -2,23 +2,22 @@ import {Component} from "react";
 import './index.less'
 import logo from '../../assets/logo.png'
 import {Menu} from "antd";
-import {Link, Route, Routes} from "react-router-dom";
-import {AppstoreOutlined, LinkOutlined, MailOutlined, PieChartOutlined, SettingOutlined} from "@ant-design/icons";
-import Category from "../../pages/category/category.jsx";
+import {Link} from "react-router-dom";
+import {AppstoreOutlined} from "@ant-design/icons";
 
-export default class index extends Component {
+export default class LeftNav extends Component {
 
     render() {
         const items = [
             {
                 label: <Link to="/category">Category</Link>,
                 key: '/category',
-                icon: <AppstoreOutlined />
-            },            { label: '菜单项二', key: 'item-2' },
+                icon: <AppstoreOutlined/>
+            },
             {
-                label: '子菜单',
-                key: 'submenu',
-                children: [{ label: '子菜单项', key: 'submenu-item-1' }],
+                label: <Link to="/product">Product</Link>,
+                key: '/product',
+                icon: <AppstoreOutlined/>
             },
         ];
 
