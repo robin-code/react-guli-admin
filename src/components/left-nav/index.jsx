@@ -3,24 +3,19 @@ import './index.less'
 import logo from '../../assets/logo.png'
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
-import {AppstoreOutlined} from "@ant-design/icons";
+import menuList from "../../config/menuConfig.js";
 
 export default class LeftNav extends Component {
 
     render() {
-        const items = [
-            {
-                label: <Link to="/category">Category</Link>,
-                key: '/category',
-                icon: <AppstoreOutlined/>
-            },
-            {
-                label: <Link to="/product">Product</Link>,
-                key: '/product',
-                icon: <AppstoreOutlined/>
-            },
-        ];
 
+        const menus = menuList.map(menu =>{
+        return{
+            label: <Link to={menu.key}>{menu.label}</Link>,
+            key: menu.key
+        }
+
+        })
         return (
             <div className='left-nav'>
                 <Link to='/' className="left-nav-header">
@@ -30,7 +25,7 @@ export default class LeftNav extends Component {
                 <Menu
                     mode="inline"
                     theme="dark"
-                    items={items}>
+                    items={menus}>
                 </Menu>
 
 
