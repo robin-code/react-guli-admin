@@ -9,13 +9,14 @@ export default class LeftNav extends Component {
 
     render() {
 
-        const menus = menuList.map(menu =>{
-        return{
-            label: <Link to={menu.key}>{menu.label}</Link>,
-            key: menu.key
-        }
-
-        })
+        const items = menuList.map(menu => ({
+            label: menu.children ? menu.label : <Link to={menu.key}>{menu.label}</Link>,
+            key: menu.key,
+            children: menu.children?.map(subMenu => ({
+                label: <Link to={subMenu.key}>{subMenu.label}</Link>,
+                key: subMenu.key,
+            })),
+        }));
         return (
             <div className='left-nav'>
                 <Link to='/' className="left-nav-header">
@@ -25,7 +26,7 @@ export default class LeftNav extends Component {
                 <Menu
                     mode="inline"
                     theme="dark"
-                    items={menus}>
+                    items={items}>
                 </Menu>
 
 

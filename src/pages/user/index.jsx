@@ -1,6 +1,6 @@
 import {Component} from 'react';
 
-class Role extends Component {
+class User extends Component {
     render() {
         return (
             <div>
@@ -10,4 +10,4 @@ class Role extends Component {
     }
 }
 
-export default Role;
+export default User;
