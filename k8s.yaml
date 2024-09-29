@@ -51,10 +51,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - react.riji.life  # 填写你的域名
-      secretName: cert-riji.life-wild-tls  # 存储证书的 Secret
+        - react.robin.lan  # 填写你的域名
+      secretName: robin-lan-wildcard-tls # 存储证书的 Secret
   rules:
-    - host: react.riji.life
+    - host: react.robin.lan
       http:
         paths:
           - pathType: Prefix
