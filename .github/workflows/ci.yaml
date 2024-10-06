@@ -83,4 +83,4 @@ jobs:
           script: |
             echo "${{ env.VERSION }}"
             ls -al
-            kubectl set image deployment/${{ env.REPO_NAME }} -n dev ${{ env.REPO_NAME }}=${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
+            kubectl set image deployment/${{ env.REPO_NAME }} ${{ env.REPO_NAME }}=${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
