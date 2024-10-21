@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: registry.cn-hangzhou.aliyuncs.com/robin-registry/vite-react-demo:latest
-    newTag: latest
+    newTag: 35_202410211133_cf78053
 patchesStrategicMerge:
   - service-patch.yaml
