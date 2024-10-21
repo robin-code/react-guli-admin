@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vite-react-demo
+  labels:
+    app: vite-react-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vite-react-demo
+  template:
+    metadata:
+      labels:
+        app: vite-react-demo
+    spec:
+      containers:
+        - name: vite-react-demo
+          imagePullPolicy: IfNotPresent
+          image: registry.cn-hangzhou.aliyuncs.com/robin-registry/vite-react-demo:latest
+          ports:
+            - containerPort: 3000
+#          resources:
+#            requests:
+#              memory: "256Mi"
+#              cpu: "100m"
+#            limits:
+#              memory: "512Mi"
+#              cpu: "200m"
