@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vite-react-demo
+  labels:
+    app: vite-react-demo
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - react.riji.life  # 填写你的域名
+      secretName: cert-riji.life-wild-tls # 存储证书的 Secret
+  rules:
+    - host: react.riji.life
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: vite-react-demo
+                port:
+                  number: 80
