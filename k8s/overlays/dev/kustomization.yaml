@@ -3,4 +3,4 @@ resources:
 
 images:
   - name: registry.cn-hangzhou.aliyuncs.com/robin-registry/vite-react-demo:latest
-    newTag: 38_202410211256_53fa05c
+    newTag: 39_202410211302_afd81d8
