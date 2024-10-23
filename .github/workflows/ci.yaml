@@ -94,7 +94,7 @@ jobs:
         env:
           ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}  # ArgoCD 服务器地址
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}    # ArgoCD API token
-          ARGOCD_APP_NAME: ${{ env.REPO_NAME }}-${{ env.NAMESPACE }} # 需要同步的应用名称
+          ARGOCD_APP_NAME: ${{ env.REPO_NAME }} # 需要同步的应用名称
           IMAGE_NAME: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }} # 需要同步的应用名称
         run: |
           argocd app set $ARGOCD_APP_NAME --kustomize-image $IMAGE_NAME=$IMAGE_NAME:${{ env.VERSION }} --server $ARGOCD_SERVER --auth-token $ARGOCD_TOKEN --insecure --grpc-web
