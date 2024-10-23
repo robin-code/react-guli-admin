@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 
 import Login from "./pages/login/login.jsx";
 import './utils/storeUtil.js'
@@ -28,7 +28,7 @@ function App() {
                     <Route path="/charts/line" element={<LineChart/>}/>
                     <Route path="/charts/pie" element={<PieChart/>}/>
                 </Route>
-                <Route path="/login" elem4ent={<Login/>}/>
+                <Route path="/login" element={<Login/>}/>
             </Routes>
         </Router>
     )
