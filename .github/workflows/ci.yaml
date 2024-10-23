@@ -71,21 +71,21 @@ jobs:
           platforms: linux/amd64 #,linux/arm64
           push: true
           tags: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.VERSION }},${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:latest
-      - name: Update kustomization.yaml with new image
-        run: |
-          sed -i "s@newTag:.*@newTag: ${{ env.VERSION }}@g" k8s/overlays/dev/kustomization.yaml
-      - name: Commit updated kustomization.yaml
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add k8s/overlays/dev/kustomization.yaml
-          git commit -m "Update image tag to ${{ env.VERSION }}"
-      - name: Push changes to the current branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          BRANCH=$(echo $GITHUB_REF | sed 's@refs/heads/@@')
-          git push origin $BRANCH
+#      - name: Update kustomization.yaml with new image
+#        run: |
+#          sed -i "s@newTag:.*@newTag: ${{ env.VERSION }}@g" k8s/overlays/dev/kustomization.yaml
+#      - name: Commit updated kustomization.yaml
+#        run: |
+#          git config --global user.name "github-actions[bot]"
+#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#          git add k8s/overlays/dev/kustomization.yaml
+#          git commit -m "Update image tag to ${{ env.VERSION }}"
+#      - name: Push changes to the current branch
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          BRANCH=$(echo $GITHUB_REF | sed 's@refs/heads/@@')
+#          git push origin $BRANCH
       - name: Install ArgoCD CLI
         run: |
           curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
@@ -94,10 +94,11 @@ jobs:
         env:
           ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}  # ArgoCD 服务器地址
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}    # ArgoCD API token
-          ARGOCD_APP_NAME: ${{ env.REPO_NAME }} # 需要同步的应用名称
+          ARGOCD_APP_NAME: ${{ env.REPO_NAME }}-${{ env.NAMESPACE }} # 需要同步的应用名称
+          IMAGE_NAME: ${{ vars.ALI_DOCKER_REGISTRY }}/${{ vars.ALI_DOCKER_NAMESPACE }}/${{ env.REPO_NAME }} # 需要同步的应用名称
         run: |
-          argocd app sync $ARGOCD_APP_NAME --server $ARGOCD_SERVER --auth-token $ARGOCD_TOKEN --insecure
-
+          argocd app set $ARGOCD_APP_NAME --kustomize-image $IMAGE_NAME=$IMAGE_NAME:${{ env.VERSION }} --server $ARGOCD_SERVER --auth-token $ARGOCD_TOKEN --insecure --grpc-web
+          argocd app sync $ARGOCD_APP_NAME --server $ARGOCD_SERVER --auth-token $ARGOCD_TOKEN --insecure --grpc-web
 #      - name: upgrade app deployment with new image
 #        uses: appleboy/ssh-action@v1.0.3
 #        with:
