@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import {useLocation} from "react-router-dom";
 import menuList from "../../config/menuConfig.js";
+import StoreUtil from "../../utils/storeUtil.js";
 
 
 const getTitleByPath = (menuItems, path) => {
@@ -22,6 +23,8 @@ const Header = () => {
     const [currentTime,setCurrentTime] = useState(dayjs().format('YYYY-MM-DD HH:mm:ss'))
     const [title, setTitle] = useState('');
     const location = useLocation();
+    const [weather] = useState('晴');
+    const [user, setUser] = useState(null);
 
 
     useEffect(() => {
@@ -40,20 +43,22 @@ const Header = () => {
         return () => clearInterval(timerId);
     }, []); // 空依赖数组表示只在组件挂载和卸载时运行
 
-
+    useEffect(() => {
+        const currentUser = StoreUtil.getUser();
+        setUser(currentUser.username );
+    }, []);
 
     return (
         <div className='header'>
             <div className='header-top'>
-                <span>欢迎你，admin</span>
+                <span>欢迎你:{user}</span>
                 <Button>退出</Button>
             </div>
             <div className='header-bottom'>
                 <div className='header-bottom-left'>{title}</div>
                 <div className='header-bottom-right'>
                     <span>{currentTime}</span>
-                    <img alt='weather'></img>
-                    <span>晴</span>
+                    <span>{weather}</span>
                 </div>
             </div>
         </div>)
