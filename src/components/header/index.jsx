@@ -20,7 +20,7 @@ const getTitleByPath = (menuItems, path) => {
 
 const Header = () => {
 
-    const [currentTime,setCurrentTime] = useState(dayjs().format('YYYY-MM-DD HH:mm:ss'))
+    const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM-DD HH:mm:ss'))
     const [title, setTitle] = useState('');
     const location = useLocation();
     const [weather] = useState('晴');
@@ -45,14 +45,19 @@ const Header = () => {
 
     useEffect(() => {
         const currentUser = StoreUtil.getUser();
-        setUser(currentUser.username );
+        setUser(currentUser.username);
     }, []);
+
+    const logout = () =>{
+        console.info("logout ,remove user")
+        StoreUtil.removeUser();
+    }
 
     return (
         <div className='header'>
             <div className='header-top'>
                 <span>欢迎你:{user}</span>
-                <Button>退出</Button>
+                <Button onClick={logout}>退出</Button>
             </div>
             <div className='header-bottom'>
                 <div className='header-bottom-left'>{title}</div>

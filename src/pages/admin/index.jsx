@@ -1,18 +1,18 @@
 import {Component} from 'react';
 import {Layout} from 'antd';
 
-import memoryUtil from "../../utils/memoryUtil.js";
 import {Outlet, useNavigate} from "react-router-dom";
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 
 import './index.less'
+import StoreUtil from "../../utils/storeUtil.js";
 
 const {Sider, Footer, Content} = Layout;
 
 class Admin extends Component {
     render() {
-        const user = memoryUtil.user
+        const user = StoreUtil.getUser();
         if (!user || !user._id) {
             const navigate = useNavigate;
             navigate('/login');
