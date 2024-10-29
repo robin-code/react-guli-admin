@@ -1,4 +1,3 @@
-import {Component} from 'react';
 import {Layout} from 'antd';
 
 import {Outlet, useNavigate} from "react-router-dom";
@@ -10,31 +9,30 @@ import StoreUtil from "../../utils/storeUtil.js";
 
 const {Sider, Footer, Content} = Layout;
 
-class Admin extends Component {
-    render() {
-        const user = StoreUtil.getUser();
-        if (!user || !user._id) {
-            const navigate = useNavigate;
-            navigate('/login');
-        }
-        return (
-            <Layout style={{minHeight: '100%'}}>
-                <Sider>
-                    <LeftNav/>
-                </Sider>
-                <Layout>
-                    <Header/>
-                    <Content style={{backgroundColor: 'skyblue'}}>
-                        <Outlet/>
-                    </Content>
-                    <Footer style={{
-                        textAlign: 'center',
-                        color: '#cccccc'
-                    }}>推荐使用谷歌浏览器，可以获得更佳页面操作体验</Footer>
-                </Layout>
-            </Layout>
-        );
+const Admin = () => {
+    const user = StoreUtil.getUser();
+    console.log("user is ", user)
+    if (!!user) {
+        const navigate = useNavigate;
+        navigate('/login');
     }
+    return (
+        <Layout style={{minHeight: '100%'}}>
+            <Sider>
+                <LeftNav/>
+            </Sider>
+            <Layout>
+                <Header/>
+                <Content style={{backgroundColor: 'skyblue'}}>
+                    <Outlet/>
+                </Content>
+                <Footer style={{
+                    textAlign: 'center',
+                    color: '#cccccc'
+                }}>推荐使用谷歌浏览器，可以获得更佳页面操作体验</Footer>
+            </Layout>
+        </Layout>
+    );
 }
 
 export default Admin;

@@ -8,9 +8,11 @@ import 'antd/dist/antd.css';
 import storageUtils from './utils/storeUtil.js'
 import memoryUtils from './utils/memoryUtil.js'
 
-const user = storageUtils.getUser()
-memoryUtils.user = user
+// storageUtils.removeUser();
 
+// const user = {}
+// memoryUtils.user = {}
+// console.log("app user =%s",user)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     // <React.StrictMode>
