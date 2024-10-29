@@ -16,7 +16,7 @@ function Login() {
     useEffect(() => {
         if (!isLogin) {
             console.log("already login user=%s,isLogin=%s", memoryUtil.user,isLogin);
-            navigate('/home')
+            navigate('/')
         }
     }, [isLogin, navigate]);
 
@@ -30,7 +30,7 @@ function Login() {
             memoryUtil.user = result.data;
             storeUtil.saveUser(result.data)
             setIsLogin(true);
-            navigate("/home")
+            navigate("/")
         }
     };
     const onFinishFailed = (errorInfo) => {

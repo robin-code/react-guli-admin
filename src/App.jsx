@@ -16,15 +16,17 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/home" element={<Admin/>}/>
-                <Route path="/category" element={<Category/>}/>
-                <Route path="/product" element={<Product/>}/>
-                <Route path="/user" element={<User/>}/>
-                <Route path="/role" element={<Role/>}/>
-                <Route path="/order" element={<Order/>}/>
-                <Route path="/charts/bar" element={<BarChart/>}/>
-                <Route path="/charts/line" element={<LineChart/>}/>
-                <Route path="/charts/pie" element={<PieChart/>}/>
+                {/*默认重定向到login*/}
+                <Route path="/" element={<Admin/>}>
+                    <Route path="/category" element={<Category/>}/>
+                    <Route path="/product" element={<Product/>}/>
+                    <Route path="/user" element={<User/>}/>
+                    <Route path="/role" element={<Role/>}/>
+                    <Route path="/order" element={<Order/>}/>
+                    <Route path="/charts/bar" element={<BarChart/>}/>
+                    <Route path="/charts/line" element={<LineChart/>}/>
+                    <Route path="/charts/pie" element={<PieChart/>}/>
+                </Route>
                 <Route path="/login" element={<Login/>}/>
             </Routes>
         </BrowserRouter>
