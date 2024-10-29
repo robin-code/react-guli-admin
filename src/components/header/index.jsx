@@ -2,9 +2,10 @@ import './index.less'
 import {Button} from "antd";
 import {useEffect, useState} from "react";
 import dayjs from "dayjs";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import menuList from "../../config/menuConfig.js";
 import StoreUtil from "../../utils/storeUtil.js";
+import memoryUtil from "../../utils/memoryUtil.js";
 
 
 const getTitleByPath = (menuItems, path) => {
@@ -25,6 +26,7 @@ const Header = () => {
     const location = useLocation();
     const [weather] = useState('晴');
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -51,6 +53,8 @@ const Header = () => {
     const logout = () =>{
         console.info("logout ,remove user")
         StoreUtil.removeUser();
+        memoryUtil.user = {}
+        navigate('/login')
     }
 
     return (

@@ -11,17 +11,18 @@ import {useEffect, useState} from "react";
 
 function Login() {
     const navigate = useNavigate();
-    const [isLogin, setIsLogin] = useState(!!memoryUtil.user);
+    const [isLogin, setIsLogin] = useState(!memoryUtil.user);
 
     useEffect(() => {
-        if (!isLogin) {
-            console.log("already login user=%s,isLogin=%s", memoryUtil.user,isLogin);
+        const user = memoryUtil.user
+        console.info("useEffect user ={},isLogin={}", memoryUtil.user, isLogin)
+        if (user && user._id) {
+            console.log("already login user=%s,isLogin=%s", memoryUtil.user, isLogin);
             navigate('/')
         }
     }, [isLogin, navigate]);
 
     const onFinish = async (values) => {
-        console.log('Success:', values);
         message.success('登录成功', 2)
         const {username, password} = values;
         const result = await reqLogin(username, password) // {status: 0, data: user}  {status: 1, msg: 'xxx'}
@@ -30,7 +31,8 @@ function Login() {
             memoryUtil.user = result.data;
             storeUtil.saveUser(result.data)
             setIsLogin(true);
-            navigate("/")
+            console.info("login success");
+            navigate('/')
         }
     };
     const onFinishFailed = (errorInfo) => {
