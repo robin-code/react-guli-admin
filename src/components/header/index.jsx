@@ -1,5 +1,5 @@
 import './index.less'
-import {Button} from "antd";
+import {Button, Modal} from "antd";
 import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -51,10 +51,16 @@ const Header = () => {
     }, []);
 
     const logout = () =>{
-        console.info("logout ,remove user")
-        StoreUtil.removeUser();
-        memoryUtil.user = {}
-        navigate('/login')
+        // 显示确认框
+        Modal.confirm({
+            content: '确定退出吗?',
+            onOk: () => {
+                console.info("logout ,remove user")
+                StoreUtil.removeUser();
+                memoryUtil.user = {}
+                navigate('/login')
+            }
+        })
     }
 
     return (
