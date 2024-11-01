@@ -7,7 +7,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'http://localhost:9000/api', // 目标后端服务器的地址
+                target: 'http://localhost:8081/', // 目标后端服务器的地址
                 changeOrigin: true, // 是否改变请求源
                 rewrite: (path) => path.replace(/^\/api/, ''), // 可选：重写路径，例如去掉 `/api`
             },
