@@ -46,7 +46,6 @@ class Category extends Component {
                     width: '100%',
                 }}>
 
-                <Table dataSource={dataSource} columns={columns}/>;
 
             </Card>
         );
