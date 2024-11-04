@@ -7,3 +7,5 @@ export function reqLogin(username, password) {
   return ajax('/login', {username, password}, 'POST')
 }*/
 export const reqLogin = (username, password) => ajax('/api/login', {username, password}, 'POST')
+
+export const reqCategory= (parentCode) => ajax( '/api/category/list', {parentCode})

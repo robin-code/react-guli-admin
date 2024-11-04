@@ -15,6 +15,7 @@ import {message} from 'antd'
 export default function ajax(url, data = {}, type = 'GET') {
 
     return new Promise((resolve) => {
+        console.info("request ",url,data)
         let promise
         // 1. 执行异步ajax请求
         if (type === 'GET') { // 发GET请求
@@ -33,11 +34,4 @@ export default function ajax(url, data = {}, type = 'GET') {
             message.error('请求出错了: ' + error.message)
         })
     })
-
-
 }
-
-// 请求登陆接口
-// ajax('/login', {username: 'Tom', passsword: '12345'}, 'POST').then()
-// 添加用户
-// ajax('/manage/user/add', {username: 'Tom', passsword: '12345', phone: '13712341234'}, 'POST').then()
