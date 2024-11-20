@@ -13,7 +13,7 @@ class Category extends Component {
         subCategories: [], // 二级分类列表
         parentCode: '0', // 当前需要显示的分类列表的父分类ID
         parentName: '', // 当前需要显示的分类列表的父分类名称
-        isModalOpen: false, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
+        addCategoryModal: false, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
     }
 
     /*
@@ -127,7 +127,7 @@ class Category extends Component {
     showAdd = () => {
         console.log("click add category ")
         this.setState({
-            isModalOpen: true
+            addCategoryModal: true
         })
     }
 
@@ -142,13 +142,13 @@ class Category extends Component {
         } else {
             message.error("新增分类失败，异常原因 %s", result.message)
         }
-        this.setState({isModalOpen: false})
+        this.setState({addCategoryModal: false})
 
 
     };
 
     render() {
-        const {categories, subCategories, parentCode, parentName, loading, isModalOpen} = this.state
+        const {categories, subCategories, parentCode, parentName, loading, addCategoryModal} = this.state
         const title = parentCode === '0' ? '一级分类列表' : (<span>
         <LinkButton onClick={this.showCategory}>一级分类列表</LinkButton>
        <ArrowRightOutlined style={{marginRight: 10}}/>
@@ -171,7 +171,7 @@ class Category extends Component {
 
             <Modal title="Basic Modal"
                    footer={null}
-                   open={isModalOpen}
+                   open={addCategoryModal}
                    onOk={this.handleOk}
                    onCancel={this.handleCancel}>
                 <AddCategory categories={categories}
