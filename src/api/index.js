@@ -10,9 +10,10 @@ export const reqLogin = (username, password) => ajax('/api/login', {username, pa
 
 export const reqCategory = (parentCode) => ajax('/api/category/list', {parentCode})
 
-
 export const reqAddCategory = (name, code, parentCode) => ajax('/api/category/', {
     name,
     code,
     parentCode
 }, 'POST')
+
+export const reqDeleteCategory = (id) => ajax(`/api/category/${id}`, {}, 'DELETE');

@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import {Button, Card, message, Modal, Space, Table} from "antd";
-import {reqAddCategory, reqCategory} from "../../api/index.js";
+import {reqAddCategory, reqCategory, reqDeleteCategory} from "../../api/index.js";
 import LinkButton from "../../components/link-button/index.jsx";
 import {ArrowRightOutlined} from "@ant-design/icons";
 import AddCategory from "./add-category.jsx";
@@ -32,10 +32,15 @@ class Category extends Component {
             title: '操作', key: 'action', width: 300, render: (category) => (<Space size="middle">
                 {this.state.parentCode === '0' ?
                     <Button onClick={() => this.showSubCategory(category)}>查看子分类</Button> : null}
-                <a>编辑分类</a>
+                <Button onClick={() =>this.deleteCategory(category.id)}>删除</Button>
             </Space>),
-
         },]
+    }
+    deleteCategory = async (id)=>{
+        console.info("delete category id=%d",id)
+        const result = await reqDeleteCategory(id)
+        console.info("delete category id=%d,result=%s", id, JSON.stringify(result));
+        this.getCategory();
     }
 
     /*
