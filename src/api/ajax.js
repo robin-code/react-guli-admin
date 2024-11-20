@@ -25,6 +25,9 @@ export default function ajax(url, data = {}, type = 'GET') {
                 case 'POST':
                     promise = axios.post(url, data);
                     break;
+                case 'PUT':
+                    promise = axios.put(url, data);
+                    break;
                 case 'DELETE':
                     promise = axios.delete(url);
                     break;

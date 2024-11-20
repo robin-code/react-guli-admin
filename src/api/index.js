@@ -17,3 +17,11 @@ export const reqAddCategory = (name, code, parentCode) => ajax('/api/category/',
 }, 'POST')
 
 export const reqDeleteCategory = (id) => ajax(`/api/category/${id}`, {}, 'DELETE');
+/**
+ * 更新产品分类
+ */
+export const reqUpdateCategory = (id, name, code, parentCode) => ajax(`/api/category/${id}`, {
+    name,
+    code,
+    parentCode
+}, 'PUT');

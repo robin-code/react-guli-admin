@@ -4,6 +4,7 @@ import {reqAddCategory, reqCategory, reqDeleteCategory} from "../../api/index.js
 import LinkButton from "../../components/link-button/index.jsx";
 import {ArrowRightOutlined} from "@ant-design/icons";
 import AddCategory from "./add-category.jsx";
+import {UpdateCategory} from "./UpdateCategory.jsx";
 
 class Category extends Component {
 
@@ -14,6 +15,8 @@ class Category extends Component {
         parentCode: '0', // 当前需要显示的分类列表的父分类ID
         parentName: '', // 当前需要显示的分类列表的父分类名称
         addCategoryModal: false, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
+        updateCategoryModal: false, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
+        category: null,
     }
 
     /*
@@ -32,16 +35,26 @@ class Category extends Component {
             title: '操作', key: 'action', width: 300, render: (category) => (<Space size="middle">
                 {this.state.parentCode === '0' ?
                     <Button onClick={() => this.showSubCategory(category)}>查看子分类</Button> : null}
-                <Button onClick={() =>this.deleteCategory(category.id)}>删除</Button>
+                <Button onClick={() => this.showUpdateCategory(category)}>修改</Button>
+                <Button onClick={() => this.deleteCategory(category.id)}>删除</Button>
             </Space>),
         },]
     }
-    deleteCategory = async (id)=>{
-        console.info("delete category id=%d",id)
+    deleteCategory = async (id) => {
+        console.info("delete category id=%d", id)
         const result = await reqDeleteCategory(id)
         console.info("delete category id=%d,result=%s", id, JSON.stringify(result));
         this.getCategory();
     }
+
+    showUpdateCategory = (category) => {
+        console.debug("update category ", category)
+        this.setState({updateCategoryModal: true, category})
+    }
+    hideUpdateCategory = () => {
+        this.setState({updateCategoryModal: false})
+    }
+
 
     /*
     为第一次render()准备数据
@@ -143,12 +156,19 @@ class Category extends Component {
             message.error("新增分类失败，异常原因 %s", result.message)
         }
         this.setState({addCategoryModal: false})
-
-
     };
 
     render() {
-        const {categories, subCategories, parentCode, parentName, loading, addCategoryModal} = this.state
+        const {
+            categories,
+            subCategories,
+            parentCode,
+            parentName,
+            loading,
+            addCategoryModal,
+            updateCategoryModal,
+            category
+        } = this.state
         const title = parentCode === '0' ? '一级分类列表' : (<span>
         <LinkButton onClick={this.showCategory}>一级分类列表</LinkButton>
        <ArrowRightOutlined style={{marginRight: 10}}/>
@@ -167,17 +187,18 @@ class Category extends Component {
                 bordered dataSource={parentCode === '0' ? categories : subCategories} columns={this.columns}
                 pagination={{defaultPageSize: 5, showQuickJumper: true}}
             />
-
-
-            <Modal title="Basic Modal"
-                   footer={null}
-                   open={addCategoryModal}
-                   onOk={this.handleOk}
-                   onCancel={this.handleCancel}>
+            <Modal
+                footer={null}
+                open={addCategoryModal}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}>
                 <AddCategory categories={categories}
                              parentCode={parentCode}
                              addCategory={this.handleAddCategory}
                 />
+            </Modal>
+            <Modal footer={null} open={updateCategoryModal}>
+                <UpdateCategory category={category} updateCategory={this.hideUpdateCategory}/>
             </Modal>
         </Card>);
     }

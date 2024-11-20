@@ -23,7 +23,6 @@ class AddCategory extends Component {
             <Form.Item label="所属分类" name="parentCode">
                 <Select
                     defaultValue="0"
-                    // onChange={this.onFinish}
                     options={[{
                         value: '0', label: '一级分类',
                     },
