@@ -1,8 +1,9 @@
 import {Component} from 'react';
-import {Button, Card, message, Space, Table} from "antd";
-import {reqCategory} from "../../api/index.js";
+import {Button, Card, message, Modal, Space, Table} from "antd";
+import {reqAddCategory, reqCategory} from "../../api/index.js";
 import LinkButton from "../../components/link-button/index.jsx";
 import {ArrowRightOutlined} from "@ant-design/icons";
+import AddCategory from "./add-category.jsx";
 
 class Category extends Component {
 
@@ -12,7 +13,7 @@ class Category extends Component {
         subCategories: [], // 二级分类列表
         parentCode: '0', // 当前需要显示的分类列表的父分类ID
         parentName: '', // 当前需要显示的分类列表的父分类名称
-        showStatus: 0, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
+        isModalOpen: false, // 标识添加/更新的确认框是否显示, 0: 都不显示, 1: 显示添加, 2: 显示更新
     }
 
     /*
@@ -77,6 +78,14 @@ class Category extends Component {
         // console.log('parentId', this.state.parentId) // '0'
     }
 
+    handleOk = () => {
+        this.setState({isModalOpen: false})
+    }
+
+    handleCancel = () => {
+        this.setState({isModalOpen: false})
+    }
+
 
     /*
    异步获取一级/二级分类列表显示
@@ -110,15 +119,37 @@ class Category extends Component {
             message.error('获取分类列表失败')
         }
     }
+    showAdd = () => {
+        console.log("click add category ")
+        this.setState({
+            isModalOpen: true
+        })
+    }
+
+    handleAddCategory = async (values) => {
+        // 这里可以对 values 进行校验或处理
+        const {categoryName, parentCode, categoryCode} = values;
+        const result = await reqAddCategory(categoryName, categoryCode, parentCode || '0')
+        console.log('Received values categoryName = %s,parentCode = %s,categoryCode = %s,result=%s', parentCode || '0', categoryName, categoryCode, JSON.stringify(result, null, 2));
+        if (result.code === 0) {
+            console.info("add category result={}", result.data);
+            this.getCategory();
+        } else {
+            message.error("新增分类失败，异常原因 %s", result.message)
+        }
+        this.setState({isModalOpen: false})
+
+
+    };
 
     render() {
-        const {categories, subCategories, parentCode, parentName, loading, showStatus} = this.state
+        const {categories, subCategories, parentCode, parentName, loading, isModalOpen} = this.state
         const title = parentCode === '0' ? '一级分类列表' : (<span>
         <LinkButton onClick={this.showCategory}>一级分类列表</LinkButton>
        <ArrowRightOutlined style={{marginRight: 10}}/>
         <span>{parentName}</span>
       </span>)
-        const extra = <Button type='primary'>
+        const extra = <Button type='primary' onClick={this.showAdd}>
             添加
         </Button>;
         return (<Card
@@ -131,6 +162,18 @@ class Category extends Component {
                 bordered dataSource={parentCode === '0' ? categories : subCategories} columns={this.columns}
                 pagination={{defaultPageSize: 5, showQuickJumper: true}}
             />
+
+
+            <Modal title="Basic Modal"
+                   footer={null}
+                   open={isModalOpen}
+                   onOk={this.handleOk}
+                   onCancel={this.handleCancel}>
+                <AddCategory categories={categories}
+                             parentCode={parentCode}
+                             addCategory={this.handleAddCategory}
+                />
+            </Modal>
         </Card>);
     }
 
