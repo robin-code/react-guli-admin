@@ -25,3 +25,17 @@ export const reqUpdateCategory = (id, name, code, parentCode) => ajax(`/api/cate
     code,
     parentCode
 }, 'PUT');
+
+
+/**
+ * 分页查询产品
+ * @param page
+ * @param size
+ * @param searchName
+ * @param searchType
+ */
+export const reqSearchProducts = ({page, size, searchName, searchType}) => ajax('/api/product/page', {
+    page,
+    size,
+    [searchType]: searchName,
+})
