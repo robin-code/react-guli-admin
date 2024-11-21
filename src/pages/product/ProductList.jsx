@@ -3,6 +3,11 @@ import {reqSearchProducts} from "../../api/index.js";
 import {Card, message, Table} from "antd";
 
 export class ProductList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.initColumns();
+    }
     state = {
         page: 1,
         size: 5,
@@ -11,7 +16,6 @@ export class ProductList extends Component {
         totalElements: 0,
         searchName: '',
         searchType: ''
-
     }
 
 
@@ -44,12 +48,6 @@ export class ProductList extends Component {
             },
         ];
     }
-
-
-    componentWillMount() {
-        this.initColumns()
-    }
-
 
     componentDidMount() {
         this.getProductList();
