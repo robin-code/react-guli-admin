@@ -23,7 +23,7 @@ const Admin = () => {
             </Sider>
             <Layout>
                 <Header/>
-                <Content style={{backgroundColor: 'skyblue'}}>
+                <Content>
                     <Outlet/>
                 </Content>
                 <Footer style={{

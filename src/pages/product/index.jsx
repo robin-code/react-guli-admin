@@ -1,11 +1,10 @@
 import {Component} from 'react';
+import {Outlet} from "react-router-dom";
 
 class Product extends Component {
     render() {
         return (
-            <div>
-                Product
-            </div>
+            <Outlet/>
         );
     }
 }

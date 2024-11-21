@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 
 import Login from "./pages/login/login.jsx";
 import './utils/storeUtil.js'
@@ -11,6 +11,9 @@ import {PieChart} from "./pages/charts/PieChart.jsx";
 import User from "./pages/user/index.jsx";
 import Role from "./pages/role/index.jsx";
 import Admin from "./pages/admin/index.jsx";
+import {ProductList} from "./pages/product/ProductList.jsx";
+import {ProductDetail} from "./pages/product/ProductDetail.jsx";
+import {AddUpdateProduct} from "./pages/product/AddUpdateProduct.jsx";
 
 function App() {
     return (
@@ -19,7 +22,12 @@ function App() {
                 {/*默认重定向到login*/}
                 <Route path="/" element={<Admin/>}>
                     <Route path="/category" element={<Category/>}/>
-                    <Route path="/product" element={<Product/>}/>
+                    <Route path="/product" element={<Product/>}>
+                        <Route index element={<Navigate to="list" />} />
+                        <Route path='list' element={<ProductList/>}></Route>
+                        <Route path='detail' element={<ProductDetail/>}></Route>
+                        <Route path='add' element={<AddUpdateProduct/>}></Route>
+                    </Route>
                     <Route path="/user" element={<User/>}/>
                     <Route path="/role" element={<Role/>}/>
                     <Route path="/order" element={<Order/>}/>
