@@ -15,7 +15,7 @@ import {message} from 'antd'
 export default function ajax(url, data = {}, type = 'GET') {
 
     return new Promise((resolve) => {
-            console.debug("request ", url, data)
+            console.info("request ", url, data)
             let promise
             // 1. 执行异步ajax请求
             switch (type) {
