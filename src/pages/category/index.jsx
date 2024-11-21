@@ -8,6 +8,11 @@ import {UpdateCategory} from "./UpdateCategory.jsx";
 
 class Category extends Component {
 
+    constructor(props) {
+        super(props);
+        this.initColumns();
+    }
+
     state = {
         loading: false, // 是否正在获取数据中
         categories: [], // 一级分类列表
@@ -53,14 +58,6 @@ class Category extends Component {
     }
     hideUpdateCategory = () => {
         this.setState({updateCategoryModal: false})
-    }
-
-
-    /*
-    为第一次render()准备数据
-     */
-    UNSAFE_componentWillMount() {
-        this.initColumns()
     }
 
     /*执行异步任务: 发异步ajax请求*/
