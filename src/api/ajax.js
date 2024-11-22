@@ -12,6 +12,8 @@
 import axios from 'axios'
 import {message} from 'antd'
 
+console.log('API Base URL:', import.meta.env.VITE_API_BASE_URL);
+
 
 export default function ajax(url, data = {}, type = 'GET') {
 

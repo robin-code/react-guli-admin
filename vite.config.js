@@ -1,9 +1,12 @@
 import {defineConfig, loadEnv} from 'vite';
 import react from '@vitejs/plugin-react'; // 如果你使用 React 插件
 
+
+
 export default defineConfig(({mode}) => {
     // 加载环境变量
     const env = loadEnv(mode, './env')
+    console.log('Loaded environment variables:', env);
     return {
         envDir: 'env',
         plugins: [react()], // 如果使用 React，添加插件
