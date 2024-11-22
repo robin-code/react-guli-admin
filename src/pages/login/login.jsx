@@ -16,7 +16,7 @@ function Login() {
     useEffect(() => {
         const user = memoryUtil.user
         console.info("useEffect user ={},isLogin={}", memoryUtil.user, isLogin)
-        if (user && user._id) {
+        if (user && user.id) {
             console.log("already login user=%s,isLogin=%s", memoryUtil.user, isLogin);
             navigate('/')
         }
